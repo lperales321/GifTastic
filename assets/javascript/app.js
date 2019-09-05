@@ -3,15 +3,26 @@ const topics = ["Pennywise", "Freddy Krueger", "Jason Voorhees", "Leatherface", 
                 "Jack Torrance", "Carrie White", "Annie Wilkes", "Patrick Bateman", "Buffalo Bill", 
                 "Captain Spaulding", "Candyman", "Dracula", "Regan", "Rosemary Woodhouse"];
 
-for (let i = 0; i < topics.length; i++) {
-    let personBtn = $("<button>");
-    personBtn.attr("data-person", topics[i]);
-    personBtn.text(topics[i]);
+// Function for displaying topic buttons
+function renderButtons() {
 
-    $("#buttons").append(personBtn);
-};
+    // Delete the buttons prior to adding new topics
+    $("#buttons").empty();
 
-$('button').on("click", function() {
+    // Looping through the array of movies
+    for (let i = 0; i < topics.length; i++) {
+        let personBtn = $("<button>");
+        personBtn.attr("data-person", topics[i]);
+        personBtn.text(topics[i]);
+    
+        $("#buttons").append(personBtn);
+    };
+}
+
+//Calling the renderButtons function to display the intial buttons
+renderButtons();
+
+$("button").on("click", function() {
     event.preventDefault();
 
     let person = $(this).data("person");
@@ -41,13 +52,24 @@ $('button').on("click", function() {
             gifDiv.prepend(personImage);
 
             $("#gifs-appear-here").prepend(gifDiv);
-
-            // $("#gifs-appear-here").prepend(p);
-            // $("#gifs-appear-here").prepend(personImage);
         }
     }).catch(function(error) {
         console.log(error.code);
     });
+});
+
+// This function handles events where submit button is clicked
+$("#add-topic").on("click", function(event) {
+    event.preventDefault();
+
+    // This line grabs the input from the textbox
+    let character = $("#topic-input").val().trim();
+
+    // The character from the textbox is then added to the array
+    topics.push(character);
+
+    // Calling renderButtons which handles the processing of the topic array
+    renderButtons();
 });
 
 $(".gif").on("click", function() {

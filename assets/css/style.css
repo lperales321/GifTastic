@@ -1,7 +1,15 @@
 /* p {
     display: none;
-} */
-/* 
+}
+
 img {
     padding-right: 50px;
 } */
+
+button,
+div,
+form,
+input,
+label {
+  margin: 10px;
+}
